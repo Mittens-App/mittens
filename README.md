@@ -2,7 +2,7 @@
     <img alt="Mittens" src="https://github.com/rizalmf/mittens/blob/main/logo.jpeg?raw=true" width="300">
 </p>
 <p align="center">
-   Management test tools for Python codes
+   Management test tools for Python unittest codes
 </p>
 
 # Mittens
