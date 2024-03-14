@@ -1,8 +1,8 @@
 <p align="center">
-    <img alt="Mittens" src="https://github.com/rizalmf/mittens/blob/main/logo.jpeg?raw=true" width="500">
+    <img alt="Mittens" src="https://github.com/rizalmf/mittens/blob/main/logo.jpeg?raw=true" width="300">
 </p>
 <p align="center">
-   Cross-platform test automation for native, hybrid, mobile web and desktop apps.
+   Management test tools for Python codes
 </p>
 
 # Mittens
