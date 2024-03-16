@@ -7,7 +7,7 @@
 
 # Mittens
 
-Mittens is our Web UI into [purring_server](https://github.com/rizalmf/purring_server). Its a browser based your python test codes dashboard
+Mittens is our Web UI into [purring_server](https://github.com/rizalmf/purring_server). Its a browser based your python test codes dashboard.
 
 - [Documentation](#documentation)
 - [Issues & Problems](#issues-problems)
