@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/login/index.dart';
+import 'pages/login/signin_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sign in | Mittens',
-      home: SigninWidget(),
+      home: SigninPage(),
     );
   }
 }
