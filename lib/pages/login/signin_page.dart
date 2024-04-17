@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mittens/pages/home/app_layout.dart';
+import 'package:mittens/pages/login/components/action_button.dart';
+import 'package:mittens/pages/login/components/input_textfield.dart';
 
 class SigninPage extends StatefulWidget {
+  static const routeName = '/signin';
+
+  const SigninPage({super.key});
   @override
-  _SigninPageState createState() => _SigninPageState();
+  State<SigninPage> createState() => _SigninPageState();
 }
 
 class _SigninPageState extends State<SigninPage> {
@@ -105,38 +111,9 @@ class _SigninPageState extends State<SigninPage> {
                                 Positioned(
                                     top: 28,
                                     left: 0,
-                                    child: SizedBox(
-                                      height: 50,
-                                      width: 500,
-                                      child: TextField(
-                                        controller: usernameController,
-                                        cursorColor: Colors.black,
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Montserrat',
-                                            fontSize: 12,
-                                            letterSpacing:
-                                                0 /*percentages not used in flutter. defaulting to zero*/,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        decoration: const InputDecoration(
-                                          hintText: 'Enter your usename',
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey,
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 12,
-                                              letterSpacing:
-                                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5))),
-                                        ),
-                                      ),
+                                    child: InputTextField(
+                                      inputController: usernameController,
+                                      hint: 'Enter your usename',
                                     )
                                     // Text(
                                     //   'Enter your usename',
@@ -200,52 +177,56 @@ class _SigninPageState extends State<SigninPage> {
                                 Positioned(
                                     top: 28,
                                     left: 0,
-                                    child: SizedBox(
-                                      height: 50,
-                                      width: 500,
-                                      child: TextField(
-                                        controller: passwordController,
-                                        cursorColor: Colors.black,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Montserrat',
-                                            fontSize: 12,
-                                            letterSpacing:
-                                                0 /*percentages not used in flutter. defaulting to zero*/,
-                                            fontWeight: FontWeight.normal,
-                                            height: 1),
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter your password',
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey,
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 12,
-                                              letterSpacing:
-                                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5))),
-                                        ),
-                                      ),
+                                    child: InputTextField(
+                                      inputController: passwordController,
+                                      hint: 'Enter your password',
                                     )
-                                    // Text(
-                                    //   'Enter your password',
-                                    //   textAlign: TextAlign.left,
-                                    //   style: TextStyle(
-                                    //       color:
-                                    //           Color.fromRGBO(205, 205, 205, 1),
-                                    //       fontFamily: 'Montserrat',
-                                    //       fontSize: 12,
-                                    //       letterSpacing:
-                                    //           0 /*percentages not used in flutter. defaulting to zero*/,
-                                    //       fontWeight: FontWeight.normal,
-                                    //       height: 1),
+                                    // SizedBox(
+                                    //   height: 50,
+                                    //   width: 500,
+                                    //   child: TextField(
+                                    //     controller: passwordController,
+                                    //     cursorColor: Colors.black,
+                                    //     style: TextStyle(
+                                    //         color: Colors.black,
+                                    //         fontFamily: 'Montserrat',
+                                    //         fontSize: 12,
+                                    //         letterSpacing:
+                                    //             0 /*percentages not used in flutter. defaulting to zero*/,
+                                    //         fontWeight: FontWeight.normal,
+                                    //         height: 1),
+                                    //     decoration: InputDecoration(
+                                    //       hintText: 'Enter your password',
+                                    //       hintStyle: TextStyle(
+                                    //           color: Colors.grey,
+                                    //           fontFamily: 'Montserrat',
+                                    //           fontSize: 12,
+                                    //           letterSpacing:
+                                    //               0 /*percentages not used in flutter. defaulting to zero*/,
+                                    //           fontWeight: FontWeight.normal,
+                                    //           height: 1),
+                                    //       filled: true,
+                                    //       fillColor: Colors.white,
+                                    //       border: OutlineInputBorder(
+                                    //           borderSide: BorderSide.none,
+                                    //           borderRadius: BorderRadius.all(
+                                    //               Radius.circular(5))),
+                                    //     ),
+                                    //   ),
                                     // )
+                                    // // Text(
+                                    // //   'Enter your password',
+                                    // //   textAlign: TextAlign.left,
+                                    // //   style: TextStyle(
+                                    // //       color:
+                                    // //           Color.fromRGBO(205, 205, 205, 1),
+                                    // //       fontFamily: 'Montserrat',
+                                    // //       fontSize: 12,
+                                    // //       letterSpacing:
+                                    // //           0 /*percentages not used in flutter. defaulting to zero*/,
+                                    // //       fontWeight: FontWeight.normal,
+                                    // //       height: 1),
+                                    // // )
                                     ),
                                 const Positioned(
                                     top: 0,
@@ -267,42 +248,18 @@ class _SigninPageState extends State<SigninPage> {
                       Positioned(
                           top: 469,
                           left: 30,
-                          child: Container(
-                              width: 415,
-                              height: 44,
-                              child: Stack(children: <Widget>[
-                                Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child: Container(
-                                        width: 415,
-                                        height: 44,
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(4),
-                                            topRight: Radius.circular(4),
-                                            bottomLeft: Radius.circular(4),
-                                            bottomRight: Radius.circular(4),
-                                          ),
-                                          color: Color.fromRGBO(32, 91, 125, 1),
-                                        ))),
-                                const Positioned(
-                                    top: 14,
-                                    left: 180,
-                                    child: Text(
-                                      'SIGN IN',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(255, 255, 255, 1),
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 14,
-                                          letterSpacing:
-                                              0 /*percentages not used in flutter. defaulting to zero*/,
-                                          fontWeight: FontWeight.normal,
-                                          height: 1),
-                                    )),
-                              ]))),
+                          child: ActionButton(
+                            teks: "sign in",
+                            press: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AppLayout(
+                                            // title: '',
+                                            selectedMenu: 0,
+                                          )));
+                            },
+                          )),
                       Positioned(
                           top: 24,
                           left: 138,
