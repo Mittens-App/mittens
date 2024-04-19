@@ -17,7 +17,6 @@ class _SigninPageState extends State<SigninPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -112,23 +111,8 @@ class _SigninPageState extends State<SigninPage> {
                                     top: 28,
                                     left: 0,
                                     child: InputTextField(
-                                      inputController: usernameController,
-                                      hint: 'Enter your usename',
-                                    )
-                                    // Text(
-                                    //   'Enter your usename',
-                                    //   textAlign: TextAlign.left,
-                                    //   style: TextStyle(
-                                    //       color:
-                                    //           Color.fromRGBO(205, 205, 205, 1),
-                                    //       fontFamily: 'Montserrat',
-                                    //       fontSize: 12,
-                                    //       letterSpacing:
-                                    //           0 /*percentages not used in flutter. defaulting to zero*/,
-                                    //       fontWeight: FontWeight.normal,
-                                    //       height: 1),
-                                    // )
-                                    ),
+                                        inputController: usernameController,
+                                        hint: 'Enter your usename')),
                                 const Positioned(
                                     top: 0,
                                     left: 0,
@@ -178,56 +162,8 @@ class _SigninPageState extends State<SigninPage> {
                                     top: 28,
                                     left: 0,
                                     child: InputTextField(
-                                      inputController: passwordController,
-                                      hint: 'Enter your password',
-                                    )
-                                    // SizedBox(
-                                    //   height: 50,
-                                    //   width: 500,
-                                    //   child: TextField(
-                                    //     controller: passwordController,
-                                    //     cursorColor: Colors.black,
-                                    //     style: TextStyle(
-                                    //         color: Colors.black,
-                                    //         fontFamily: 'Montserrat',
-                                    //         fontSize: 12,
-                                    //         letterSpacing:
-                                    //             0 /*percentages not used in flutter. defaulting to zero*/,
-                                    //         fontWeight: FontWeight.normal,
-                                    //         height: 1),
-                                    //     decoration: InputDecoration(
-                                    //       hintText: 'Enter your password',
-                                    //       hintStyle: TextStyle(
-                                    //           color: Colors.grey,
-                                    //           fontFamily: 'Montserrat',
-                                    //           fontSize: 12,
-                                    //           letterSpacing:
-                                    //               0 /*percentages not used in flutter. defaulting to zero*/,
-                                    //           fontWeight: FontWeight.normal,
-                                    //           height: 1),
-                                    //       filled: true,
-                                    //       fillColor: Colors.white,
-                                    //       border: OutlineInputBorder(
-                                    //           borderSide: BorderSide.none,
-                                    //           borderRadius: BorderRadius.all(
-                                    //               Radius.circular(5))),
-                                    //     ),
-                                    //   ),
-                                    // )
-                                    // // Text(
-                                    // //   'Enter your password',
-                                    // //   textAlign: TextAlign.left,
-                                    // //   style: TextStyle(
-                                    // //       color:
-                                    // //           Color.fromRGBO(205, 205, 205, 1),
-                                    // //       fontFamily: 'Montserrat',
-                                    // //       fontSize: 12,
-                                    // //       letterSpacing:
-                                    // //           0 /*percentages not used in flutter. defaulting to zero*/,
-                                    // //       fontWeight: FontWeight.normal,
-                                    // //       height: 1),
-                                    // // )
-                                    ),
+                                        inputController: passwordController,
+                                        hint: 'Enter your password')),
                                 const Positioned(
                                     top: 0,
                                     left: 0,

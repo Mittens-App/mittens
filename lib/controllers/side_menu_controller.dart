@@ -43,8 +43,6 @@ class SideMenuController extends GetxController {
         return _customIcon(Icons.school, itemName);
       case tagsPageRoute:
         return _customIcon(Icons.tag, itemName);
-      // case logoutPageRoute:
-      //   return _customIcon(Icons.logout, itemName);
       case mittensPageRoute:
         return _customIcon(Icons.catching_pokemon, itemName);
       case logoutPageRoute:
@@ -64,7 +62,7 @@ class SideMenuController extends GetxController {
       );
     }
 
-    /// jika tidak aktif, makan cek [isHovering], jika iya maka warna icon = [dark], jika tidak = [lightGrey]
+    /// jika tidak aktif, maka cek [isHovering], jika iya maka warna icon = [dark], jika tidak = [lightGrey]
     return Icon(icon,
         color: isHovering(itemName) ? kTextWhiteColor : kTextWhiteColor);
   }

@@ -41,35 +41,9 @@ import 'package:flutter/services.dart';
 void main() async {
   Get.put(SideMenuController());
   WidgetsFlutterBinding.ensureInitialized();
-  // // Only call clearSavedSettings() during testing to reset internal values.
-  // await Upgrader.clearSavedSettings(); // REMOVE this for release builds
-  // // await Firebase.initializeApp();
-  // // await FirebaseApi().initNotification();
-  // // SystemChrome.setPreferredOrientations([
-  // //   DeviceOrientation.landscapeLeft,
-  // //   DeviceOrientation.landscapeRight,
-  // // ]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(const MyApp());
-  // configLoading();
 }
-
-// void configLoading() {
-//   EasyLoading.instance
-//     ..displayDuration = const Duration(milliseconds: 2000)
-//     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-//     ..loadingStyle = EasyLoadingStyle.dark
-//     ..indicatorSize = 45.0
-//     ..radius = 10.0
-//     ..progressColor = Colors.yellow
-//     ..backgroundColor = Colors.green
-//     ..indicatorColor = Colors.yellow
-//     ..textColor = Colors.yellow
-//     ..maskColor = Colors.blue.withOpacity(0.5)
-//     ..userInteractions = true
-//     ..dismissOnTap = false;
-//   // ..customAnimation = CustomAnimation();
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -78,11 +52,7 @@ class MyApp extends StatelessWidget {
     return OverlaySupport.global(
       child: Sizer(
         builder: (context, orientation, deviceType) {
-          return
-              // UpgradeAlert(
-              //   child:
-
-              GetMaterialApp(
+          return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             builder: EasyLoading.init(),
             title: 'Mittens',
@@ -112,9 +82,6 @@ class MyApp extends StatelessWidget {
               switch (settings.name) {
                 case SigninPage.routeName:
                   return MaterialPageRoute(builder: (_) => const SigninPage());
-                // case ProfilePage.routeName:
-                //   return MaterialPageRoute(
-                //       builder: (_) => ProfilePage(currentUser: args as User));
                 case OverviewPage.routeName:
                   return MaterialPageRoute(
                       builder: (_) => const OverviewPage());
@@ -144,24 +111,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'pages/login/signin_page.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Sign in | Mittens',
-//       home: SigninPage(),
-//     );
-//   }
-// }

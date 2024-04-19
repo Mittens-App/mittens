@@ -1,6 +1,4 @@
 import 'package:mittens/constants/style.dart';
-// import 'package:mittens/data/model/user.dart';
-// import 'package:mittens/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -56,16 +54,7 @@ class _DrawerHeaderTopState extends State<DrawerHeaderTop> {
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: kTextGreyColor, fontSize: 4.sp, letterSpacing: 0)),
       currentAccountPicture: const CircleAvatar(
-        // backgroundColor: kPrimaryLightColor,
         backgroundImage: AssetImage('images/Catlogo.png'),
-        // child: Image(
-        //     image: AssetImage('images/Catlogo.png'), fit: BoxFit.fitWidth)
-        // Text(user.name.substring(0, 1),
-        //     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-        //         color: kBackgroundColor,
-        //         fontWeight: FontWeight.bold,
-        //         fontSize: 40,
-        //         letterSpacing: 0)),
       ),
     );
     // });

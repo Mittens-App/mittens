@@ -23,8 +23,7 @@ class InputTextField extends StatelessWidget {
             color: Colors.black,
             fontFamily: 'Montserrat',
             fontSize: 12,
-            letterSpacing:
-                0 /*percentages not used in flutter. defaulting to zero*/,
+            letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1),
         decoration: InputDecoration(
@@ -33,8 +32,7 @@ class InputTextField extends StatelessWidget {
               color: kHintTextColor,
               fontFamily: 'Montserrat',
               fontSize: 12,
-              letterSpacing:
-                  0 /*percentages not used in flutter. defaulting to zero*/,
+              letterSpacing: 0,
               fontWeight: FontWeight.normal,
               height: 1),
           filled: true,

@@ -1,10 +1,8 @@
 import 'package:mittens/constants/controller.dart';
 import 'package:mittens/constants/style.dart';
-// import 'package:mittens/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// Side item menu mendatar yang isinya [icon berada disamping nama menu]
 class DrawerMenuItem extends StatelessWidget {
   const DrawerMenuItem(
       {super.key,
