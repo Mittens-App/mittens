@@ -1,0 +1,2 @@
+# fill with proxy server
+proxy_host: 'http://localhost:8080'
