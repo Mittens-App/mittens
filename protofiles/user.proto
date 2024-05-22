@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package src.v1.user; 
+
+// User Service
+service User {
+    // Login request
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+}
+
+message LoginRequest {
+    // username 
+    string username = 1;
+    // passoword
+    string password = 2;
+}
+
+message LoginResponse {
+    // status process
+    string status = 1;
+    // token result for user login
+    string token = 2;
+    // name of user
+    string username = 3;
+}

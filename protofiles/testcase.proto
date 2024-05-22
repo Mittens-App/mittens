@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package src.v1.testcase; 
+
+// Testcase Service
+service Testcase {
+    // return list of testcases
+    rpc Get(GetRequest) returns (GetResponse) {}
+    // create new testcase
+    rpc Create(CreateRequest) returns (CreateResponse) {}
+    // update existing testcase
+    rpc Update(UpdateRequest) returns (UpdateResponse) {}
+    // delete existing testcase
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+    // run testcase async
+    rpc Run(RunRequest) returns (RunResponse) {}
+    // get testcase functions
+    rpc View(ViewRequest) returns (ViewResponse) {}
+}
+
+message GetRequest {
+    // specific filter for keyword
+    string filter = 1;
+    // keyword search request
+    string keyword = 2;
+    // limit data request
+    uint32 limit = 3;
+    // page request
+    uint32 page = 4;
+}
+
+message GetResponse {
+    // status process
+    string status = 1;
+    // list of testcase
+    repeated DataResponse data = 2;
+    // metadata
+    MetaDataResponse metadata = 3;
+}
+
+message MetaDataResponse {
+    // current page
+    uint32 current_page = 1;
+    // data per page
+    uint32 per_page = 2;
+    // total rows data
+    uint32 total = 3;
+    // maximum page
+    uint32 last_page = 4;
+}
+
+message DataResponse {
+    // id of testcase
+    uint32 id = 1;
+    // name of testcase
+    string name = 2;
+    // description of testcase
+    string desc = 3;
+    // filepath of testcase
+    string file = 4;
+    // tags of testcase
+    repeated Tag tags = 5;
+    // creator of testcase
+    string creator = 6;
+    // last execute date of testcase
+    string last_execute_date = 7;
+    // last execute result of testcase
+    string last_execute_result = 8;
+}
+
+message Tag {
+    // name of tag
+    string name = 1;
+    // color of tag
+    string color = 2;
+}
+
+message CreateRequest {
+    // To be name of testcase
+    string name = 1;
+    // To be description of testcase
+    string desc = 2;
+    // To be filepath of testcase
+    string file = 3;
+    // To be tag of testcase
+    repeated uint32 tag_ids = 4;
+}
+
+message CreateResponse {
+    // status process
+    string status = 1;
+    // message note from server
+    string message = 2;
+}
+
+message UpdateRequest {
+    // id of testcase
+    uint32 id = 1;
+    // name of testcase
+    string name = 2;
+    // description of testcase
+    string desc = 3;
+    // filepath of testcase
+    string file = 4;
+    // tag ids of testcase
+    repeated uint32 tag_ids = 5;
+}
+
+message UpdateResponse {
+    // status process
+    string status = 1;
+    // message note from server
+    string message = 2;
+}
+
+message DeleteRequest {
+    // id of testcase
+    uint32 id = 1;
+}
+
+message DeleteResponse {
+    // status process
+    string status = 1;
+    // message note from server
+    string message = 2;
+}
+
+message RunRequest {
+    // id of testcase
+    uint32 id = 1;
+}
+
+message RunResponse {
+    // status process
+    string status = 1;
+    // message note from server
+    string message = 2;
+}
+
+message ViewRequest {
+    // filepath of testcase
+    string path = 1;
+}
+
+message ViewResponse {
+    // satus process
+    string status = 1;
+    // message note from server
+    string message = 2;
+    // testcase class name
+    string classname = 3;
+    // absolute path of testcase file
+    string path = 4;
+    // list of testcase function
+    repeated DefFunction functions = 5;
+}
+
+message DefFunction {
+    // name of function
+    string name = 1;
+    // comment of function
+    string comment = 2;
+}

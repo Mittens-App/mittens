@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package src.v1.tag; 
+
+// Tag Service
+service Tag {
+    // Create new tag
+    rpc Create(CreateRequest) returns (CreateResponse) {}
+    // Return list of tags
+    rpc Get(GetRequest) returns (GetResponse) {}
+    // Delete tags
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+    // Update existing tag
+    rpc Update(UpdateRequest) returns (UpdateResponse) {}
+}
+
+message CreateRequest {
+    // To be name of tag
+    string name = 1;
+    // to be description of tag
+    string desc = 2;
+    // to be color of tag
+    string color = 3;
+}
+
+message CreateResponse {
+    // status process
+    string status = 1;
+    // message note from server
+    string message = 2;
+}
+
+message GetRequest {
+    // keyword for search
+    string keyword = 1;
+}
+
+message GetResponse {
+    // status process
+    string status = 1;
+    // response data as list
+    repeated DataResponse data = 2;
+}
+
+message DataResponse {
+    // id of tag
+    uint32 id = 1;
+    // name of tag
+    string name = 2;
+    // description of tag
+    string desc = 3;
+    // color of tag
+    string color = 4;
+}
+
+message DeleteRequest {
+    // tag id
+    uint32 id = 1;
+}
+
+message DeleteResponse {
+    // status process
+    string status = 1;
+    // note from server
+    string message = 2;
+}
+
+message UpdateRequest {
+    // id of tag
+    uint32 id = 1;
+    // name of tag
+    string name = 2;
+    // description of tag
+    string desc = 3;
+    // color of tag
+    string color = 4;
+}
+
+message UpdateResponse {
+    // status process
+    string status = 1;
+    // note message from server
+    string message = 2;
+}
