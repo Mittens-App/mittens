@@ -9,19 +9,9 @@ import 'package:mittens/pages/tags/index.dart';
 import 'package:mittens/pages/testcase/index.dart';
 import 'dart:ui';
 
-class MyHomeScreen extends StatelessWidget {
-  const MyHomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen(this._username, {super.key});
+  final String _username;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -106,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onExit: (_) => setExtended(false),
 
             child: NavigationRail(
-              leading: const ExtendableMenu(),
+              leading: ExtendableMenu(widget._username),
               selectedIndex: _selectedIndex,
             
               minExtendedWidth: 180,
@@ -188,9 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // #TOP LEFT
 class ExtendableMenu extends StatelessWidget {
-  const ExtendableMenu({super.key});
 
-  static const  String _username = 'USERNAME';
+  const ExtendableMenu(this._username, {super.key});
+
+  final String _username;
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = NavigationRail.extendedAnimation(context);
@@ -208,14 +199,14 @@ class ExtendableMenu extends StatelessWidget {
                 backgroundImage: AssetImage('img/Catlogo.png'),
                 radius: 36,
               )
-              : const Row(children: [
-                      CircleAvatar(
+              : Row(children: [
+                      const CircleAvatar(
                         backgroundImage: AssetImage('img/Catlogo.png'),
                         radius: 28,
                       ),
                       Text(
                         _username,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white70,
                           fontWeight: FontWeight.bold
                         ),
