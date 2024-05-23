@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:mittens/pages/component_global/notification.dart';
 import 'package:mittens/pages/home/index.dart';
+import 'package:mittens/protofiles/user.pb.dart';
 import 'package:mittens/service/grpc_service.dart';
+import 'package:mittens/service/session_service.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -33,6 +36,7 @@ class _LoginFormState extends State<LoginForm> {
               child: TextFormField(
                 controller: usernamelController,
                 decoration: const InputDecoration(
+
                     border: OutlineInputBorder(), 
                     labelText: "Username",
                 ),
@@ -75,25 +79,26 @@ class _LoginFormState extends State<LoginForm> {
               height: 35,
               child: ElevatedButton(
                 onPressed: () async {
+                  String message = "Please fill input";
                   if (_formKey.currentState!.validate()) {
                     // Navigate the user to the Home page
 
                     final process = await GrpcService().login(usernamelController.text, passwordController.text);
 
                     if (process.status) {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+                      var response = process.data as LoginResponse;
+
+                      await SessionService().save(response.username, response.token);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(response.username)));
+
                       usernamelController.clear();
                       passwordController.clear();
                       return;
                     }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(process.message)),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please fill input')),
-                    );
+                    message = process.message;
                   }
+                  
+                  NotificationContent(context).setText(message).show();
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
