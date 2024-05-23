@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mittens/constant.dart';
+import 'package:mittens/pages/component_global/notification.dart';
+import 'package:mittens/pages/home/index.dart';
 import 'package:mittens/pages/login/form.dart';
 import 'package:mittens/pages/login/logo.dart';
+import 'package:mittens/service/grpc_service.dart';
+import 'package:mittens/service/session_service.dart';
 
 class MyLoginPage extends StatelessWidget {
   const MyLoginPage({super.key});
@@ -24,6 +28,27 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   
   final String _header = 'LOGIN';
+
+  @override
+  void initState() {
+    super.initState();
+    Future(() async {
+      await GrpcService().initAsync();
+      final session = await SessionService().get();
+      
+      if (session.$2 == null) {
+        return;
+      }
+      
+      final process = await GrpcService().setToken(session.$2!).ping();
+      String message = process.message;
+      if (process.status) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(session.$1!))); 
+        message = "Welcome!";
+      }
+      NotificationContent(context).setText(message).show();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

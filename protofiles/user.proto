@@ -6,6 +6,8 @@ package src.v1.user;
 service User {
     // Login request
     rpc Login(LoginRequest) returns (LoginResponse) {}
+    // Ping request
+    rpc Ping(PingRequest) returns (PingResponse) {}
 }
 
 message LoginRequest {
@@ -22,4 +24,11 @@ message LoginResponse {
     string token = 2;
     // name of user
     string username = 3;
+}
+
+message PingRequest {}
+
+message PingResponse {
+    // status process
+    string status = 1;
 }

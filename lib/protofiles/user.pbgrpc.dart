@@ -25,6 +25,10 @@ class UserClient extends $grpc.Client {
       '/src.v1.user.User/Login',
       ($0.LoginRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.LoginResponse.fromBuffer(value));
+  static final _$ping = $grpc.ClientMethod<$0.PingRequest, $0.PingResponse>(
+      '/src.v1.user.User/Ping',
+      ($0.PingRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PingResponse.fromBuffer(value));
 
   UserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -34,6 +38,10 @@ class UserClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.LoginResponse> login($0.LoginRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$login, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.PingResponse> ping($0.PingRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$ping, request, options: options);
   }
 }
 
@@ -49,11 +57,23 @@ abstract class UserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.LoginRequest.fromBuffer(value),
         ($0.LoginResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PingRequest, $0.PingResponse>(
+        'Ping',
+        ping_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.PingRequest.fromBuffer(value),
+        ($0.PingResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre($grpc.ServiceCall call, $async.Future<$0.LoginRequest> request) async {
     return login(call, await request);
   }
 
+  $async.Future<$0.PingResponse> ping_Pre($grpc.ServiceCall call, $async.Future<$0.PingRequest> request) async {
+    return ping(call, await request);
+  }
+
   $async.Future<$0.LoginResponse> login($grpc.ServiceCall call, $0.LoginRequest request);
+  $async.Future<$0.PingResponse> ping($grpc.ServiceCall call, $0.PingRequest request);
 }

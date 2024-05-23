@@ -42,3 +42,24 @@ final $typed_data.Uint8List loginResponseDescriptor = $convert.base64Decode(
     'Cg1Mb2dpblJlc3BvbnNlEhYKBnN0YXR1cxgBIAEoCVIGc3RhdHVzEhQKBXRva2VuGAIgASgJUg'
     'V0b2tlbhIaCgh1c2VybmFtZRgDIAEoCVIIdXNlcm5hbWU=');
 
+@$core.Deprecated('Use pingRequestDescriptor instead')
+const PingRequest$json = {
+  '1': 'PingRequest',
+};
+
+/// Descriptor for `PingRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pingRequestDescriptor = $convert.base64Decode(
+    'CgtQaW5nUmVxdWVzdA==');
+
+@$core.Deprecated('Use pingResponseDescriptor instead')
+const PingResponse$json = {
+  '1': 'PingResponse',
+  '2': [
+    {'1': 'status', '3': 1, '4': 1, '5': 9, '10': 'status'},
+  ],
+};
+
+/// Descriptor for `PingResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pingResponseDescriptor = $convert.base64Decode(
+    'CgxQaW5nUmVzcG9uc2USFgoGc3RhdHVzGAEgASgJUgZzdGF0dXM=');
+
