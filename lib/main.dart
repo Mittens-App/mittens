@@ -5,5 +5,4 @@ import 'package:mittens/service/grpc_service.dart';
 void main() {
   runApp(const MyLoginPage());
 
-  GrpcService().initAsync();
 }
