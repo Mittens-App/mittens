@@ -30,8 +30,8 @@ class _LoginLogoState extends State<LoginLogo> {
                     toggle = !toggle;
                   });
                 }, 
-                icon: toggle ? const Icon(Icons.sunny)
-                : const Icon(Icons.nightlight_round_rounded)
+                icon: toggle ? const Icon(Icons.nightlight_round_rounded)
+                : const Icon(Icons.sunny)
               ),
             ),
             const Center(
@@ -42,11 +42,11 @@ class _LoginLogoState extends State<LoginLogo> {
             )
         ],
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           child: Text("WELCOME TO MITTENS!",
             style: TextStyle(
-              color: Color.fromRGBO(32, 91, 125, 1),
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

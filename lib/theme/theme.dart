@@ -6,7 +6,8 @@ ThemeData lightMode = ThemeData(
 
     background: Colors.white,
     primary: Color.fromRGBO(200, 226, 241, 1),
-    tertiary: Colors.white
+    secondary: Color.fromRGBO(32, 91, 125, 1),
+    // tertiary: Colors.white
   ),
 );
 
@@ -17,7 +18,7 @@ ThemeData darkMode = ThemeData(
     // primary: Color.fromRGBO(32, 91, 125, 1),
     primary: Color.fromRGBO(16, 51, 71, 1),
     secondary: Color.fromRGBO(200, 226, 241, 1),
-    tertiary: Color.fromRGBO(200, 226, 241, 1)
+    // tertiary: Color.fromRGBO(200, 226, 241, 1)
   ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(),
@@ -25,6 +26,5 @@ ThemeData darkMode = ThemeData(
     bodyLarge: TextStyle(),
   ).apply(
     bodyColor: Colors.white,
-    displayColor: Colors.amber,
   ),
 );

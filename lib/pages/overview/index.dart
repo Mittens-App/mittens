@@ -26,7 +26,6 @@ class _OverviewPageState extends State<OverviewPage> {
           // #Body
           Expanded(
             child: Container(
-              color: Colors.yellow.shade100,
               alignment: Alignment.center,
               child: const Text(
                 'Body',
