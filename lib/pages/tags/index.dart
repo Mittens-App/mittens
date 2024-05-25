@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mittens/constant.dart';
-import 'package:mittens/pages/component_global/header.dart';
+import 'package:mittens/components/header.dart';
 
 class TagsPage extends StatefulWidget {
   const TagsPage({super.key});

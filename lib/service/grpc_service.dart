@@ -1,6 +1,5 @@
 import "package:flutter/services.dart" as s;
 import "package:grpc/grpc_web.dart";
-import "package:mittens/protofiles/user.pb.dart";
 import "package:mittens/protofiles/user.pbgrpc.dart";
 import "package:yaml/yaml.dart";
 

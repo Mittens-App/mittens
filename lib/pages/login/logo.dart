@@ -1,22 +1,46 @@
 
 import 'package:flutter/material.dart';
+import 'package:mittens/theme/provider.dart';
+import 'package:provider/provider.dart';
 
-class LoginLogo extends StatelessWidget {
+class LoginLogo extends StatefulWidget {
   const LoginLogo({super.key});
+
+  @override
+  State<LoginLogo> createState() => _LoginLogoState();
+}
+
+class _LoginLogoState extends State<LoginLogo> {
+  bool toggle = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 15,),
-        Container(
-          width: 160,
-          height: 155,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/img/Catlogo.png'),
-                fit: BoxFit.fitWidth),
-          )
+        const SizedBox(height: 5,),
+        Stack(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width > 400 ? 400 : MediaQuery.of(context).size.width - 160,
+              child: IconButton(
+                alignment: Alignment.topRight,
+                onPressed: () {
+                  setState(() {
+                    Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+                    toggle = !toggle;
+                  });
+                }, 
+                icon: toggle ? const Icon(Icons.sunny)
+                : const Icon(Icons.nightlight_round_rounded)
+              ),
+            ),
+            const Center(
+              child: CircleAvatar(
+              backgroundImage: AssetImage('img/Catlogo.png'),
+              radius: 78,
+                        ),
+            )
+        ],
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(0, 15, 0, 0),

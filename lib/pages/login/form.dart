@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:mittens/pages/component_global/notification.dart';
+import 'package:mittens/components/notification.dart';
 import 'package:mittens/pages/home/index.dart';
 import 'package:mittens/protofiles/user.pb.dart';
 import 'package:mittens/service/grpc_service.dart';
@@ -31,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
 
             // #TEXTFIELD USERNAME
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.background,
               height: 45,
               child: TextFormField(
                 controller: usernamelController,
@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
 
             // #TEXTFIELD PASSWORD
             Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.background,
               height: 45,
               child: TextFormField(
                 controller: passwordController,
