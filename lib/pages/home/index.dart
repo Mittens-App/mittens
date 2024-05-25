@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ], 
               ),
           ),
-          const VerticalDivider(thickness: 1, width: 1), // SHADOW
+          const VerticalDivider(thickness: 0.25, width: 0.25), // SHADOW
           Expanded(child: _screens[_selectedIndex]), // ACTIVE CONTENT
         ]
         ),

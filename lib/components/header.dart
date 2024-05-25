@@ -12,12 +12,16 @@ class HeaderContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
           alignment: Alignment.topLeft,
-          color: Colors.amber,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(width: 0.25, color: Theme.of(context).colorScheme.secondary)
+            )
+          ),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(25, 20, 0, 0),
             child: Text(
               _header, 
-              style: const TextStyle(fontSize: 30, backgroundColor: Colors.blueAccent),
+              style: const TextStyle(fontSize: 30),
             ),
           ),
         );

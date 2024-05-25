@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// how to Theme.of(context).colorScheme.secondary
+
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   colorScheme: const ColorScheme.light(
