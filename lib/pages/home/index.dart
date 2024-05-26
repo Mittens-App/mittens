@@ -53,14 +53,20 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedIndex = index;
           });
         },
-
+        showSelectedLabels: false,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        unselectedIconTheme: const IconThemeData(
+          color: Colors.white60,
+        ),
         items: [
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: const Icon(Icons.home_outlined), label: 'Overview',
             backgroundColor: bgColor,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.bookmark_border), label: 'Results',
+            icon: const Icon(Icons.bookmark_border, ), label: 'Results',
             backgroundColor: bgColor,
           ),
           BottomNavigationBarItem(
@@ -196,12 +202,12 @@ class ExtendableMenu extends StatelessWidget {
           ),
           child: animation.value == 0
               ? const CircleAvatar(
-                backgroundImage: AssetImage('img/Catlogo.png'),
+                backgroundImage: AssetImage('assets/img/Catlogo.png'),
                 radius: 36,
               )
               : Row(children: [
                       const CircleAvatar(
-                        backgroundImage: AssetImage('img/Catlogo.png'),
+                        backgroundImage: AssetImage('assets/img/Catlogo.png'),
                         radius: 28,
                       ),
                       Text(
