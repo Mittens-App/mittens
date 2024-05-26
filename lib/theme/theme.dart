@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // how to Theme.of(context).colorScheme.secondary
+// check active theme Theme.of(context).brightness == Brightness.dark? Theme.of(context).colorScheme.primary: Colors.white,
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,

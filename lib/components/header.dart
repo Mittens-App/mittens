@@ -12,6 +12,7 @@ class HeaderContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
           alignment: Alignment.topLeft,
+          height: 70,
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(width: 0.25, color: Theme.of(context).colorScheme.secondary)
