@@ -18,7 +18,7 @@ class GrpcService {
   GrpcService();
   
   Future<GrpcService> initAsync() async {
-    final file = await s.rootBundle.loadString('cfg/cfg.yaml');
+    final file = await s.rootBundle.loadString('assets/cfg/cfg.yaml');
     final yaml = loadYaml(file);
     _hostProxy = yaml['proxy_host']; 
 

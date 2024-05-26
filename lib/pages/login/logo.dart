@@ -22,21 +22,23 @@ class _LoginLogoState extends State<LoginLogo> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width > 400 ? 400 : MediaQuery.of(context).size.width - 160,
-              child: IconButton(
+              child: Container(
                 alignment: Alignment.topRight,
-                onPressed: () {
-                  setState(() {
-                    Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
-                    toggle = !toggle;
-                  });
-                }, 
-                icon: toggle ? const Icon(Icons.nightlight_round_rounded)
-                : const Icon(Icons.sunny)
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+                      toggle = !toggle;
+                    });
+                  }, 
+                  icon: toggle ? const Icon(Icons.nightlight_round_rounded)
+                  : const Icon(Icons.sunny)
+                ),
               ),
             ),
             const Center(
               child: CircleAvatar(
-              backgroundImage: AssetImage('img/Catlogo.png'),
+              backgroundImage: AssetImage('assets/img/Catlogo.png'),
               radius: 78,
                         ),
             )
