@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ./build/web/*
-          target: /var/www/html
+          target: /home/rizal/mittens/mittens
       - name: Change cfg file
         uses: appleboy/ssh-action@master
         with:
@@ -34,5 +34,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            cp ~/mittens/envs/cfg.yaml /var/www/html/assets/assets/cfg
-            sudo systemctl restart purring_server.service
+            cp ~/mittens/envs/cfg.yaml ~/mittens/mittens/assets/assets/cfg
+            sudo cp -R ~/mittens/mittens/* /var/www/html
