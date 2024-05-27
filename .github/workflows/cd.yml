@@ -34,5 +34,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            cp ~/mittens/envs/cfg.yaml ~/mittens/mittens/assets/assets/cfg
-            sudo cp -R ~/mittens/mittens/* /var/www/html
+            cp ~/mittens/envs/cfg.yaml ~/mittens/mittens/build/web/assets/assets/cfg
+            sudo cp -R ~/mittens/mittens/build/web* /var/www/html
+            sudo rm -R  ~/mittens/mittens/*
