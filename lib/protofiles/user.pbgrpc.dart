@@ -22,11 +22,11 @@ export 'user.pb.dart';
 @$pb.GrpcServiceName('src.v1.user.User')
 class UserClient extends $grpc.Client {
   static final _$login = $grpc.ClientMethod<$0.LoginRequest, $0.LoginResponse>(
-      'src.v1.user.User/Login',
+      '/src.v1.user.User/Login',
       ($0.LoginRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.LoginResponse.fromBuffer(value));
   static final _$ping = $grpc.ClientMethod<$0.PingRequest, $0.PingResponse>(
-      'src.v1.user.User/Ping',
+      '/src.v1.user.User/Ping',
       ($0.PingRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.PingResponse.fromBuffer(value));
 
