@@ -36,8 +36,8 @@ class GrpcService {
   }
 
   /// token options
-  CallOptions _authOptions() {
-    return CallOptions(
+  WebCallOptions _authOptions() {
+    return WebCallOptions(
         metadata: {
           "authorization" : "Bearer $_token"
         }
