@@ -1,8 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mittens/constant.dart';
 import 'package:mittens/components/header.dart';
 import 'package:mittens/service/session_service.dart';
@@ -119,7 +115,18 @@ class BoxSettingsTheme extends StatefulWidget {
 }
 
 class _BoxSettingsThemeState extends State<BoxSettingsTheme> {
-  bool toggle = false;
+  bool toggle = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future(() => {
+      setState(() {
+        toggle = Theme.of(context).brightness == Brightness.dark;
+      })
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Flexible(
