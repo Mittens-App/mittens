@@ -1,5 +1,6 @@
 import "package:flutter/services.dart" as s;
 import "package:grpc/grpc_web.dart";
+import "package:mittens/protofiles/tag.pbgrpc.dart" as tag;
 import "package:mittens/protofiles/user.pbgrpc.dart";
 import "package:yaml/yaml.dart";
 
@@ -85,6 +86,28 @@ class GrpcService {
     }
     await channel.shutdown();
 
+    return Future.value(MyResponse(
+      status, message, response
+    ));
+  }
+
+  /// Get list of tags
+  Future<MyResponse> getTags(String? key) async {
+    final channel = _getChannel();
+    final stub = tag.TagClient(channel, options: _authOptions());
+    String message = "";
+    bool status = false;
+    tag.GetResponse? response;
+
+     try {
+      response = await stub.get(
+        tag.GetRequest(keyword: key)  
+      );
+      status = true;
+    } on GrpcError catch (er) {
+      message = er.message!;
+    }
+    await channel.shutdown();
     return Future.value(MyResponse(
       status, message, response
     ));
