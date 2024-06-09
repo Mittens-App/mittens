@@ -108,18 +108,13 @@ class _LoginFormState extends State<LoginForm> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: const EdgeInsets.all(0),
-                    backgroundColor: const Color.fromRGBO(32, 91, 125, 1),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     )),
-                child: Text(
+                child: const Text(
                   'SIGN IN',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      letterSpacing: 0),
+                  textAlign: TextAlign.center
                 ),
               ),
             ),
