@@ -16,24 +16,29 @@ class _TagTableState extends State<TagTable> {
   List<tag.DataResponse> dataResponse = [];
   late DataTableSource _data = TagsDataSource(dataResponse);
 
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+    search();
+  }
 
+  void search () {
     Future(() async {
       final (_, token!) = await SessionService().get();
-      final process = await GrpcService().setToken(token).getTags(null);
+      final process = await GrpcService().setToken(token).getTags(searchController.text);
       if (!process.status) {
         NotificationContent(context).setText(process.message).show();
         return;
       }
 
       final resp= process.data as tag.GetResponse;
+      dataResponse =  resp.data;
       setState(() {
-        dataResponse =  resp.data;
+        _data = TagsDataSource(dataResponse);
       });
     });
-      
   }
 
   @override
@@ -49,15 +54,34 @@ class _TagTableState extends State<TagTable> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: 150,
-                  height: 50,
-                  color: Colors.grey,
-                  child: TextField(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // #SEARCH KEYWORD
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      width: 150,
+                      // height: 50,
+                      color: Colors.grey,
+                      child: TextField(
+
+                        controller: searchController,
+                        onSubmitted: (value) => search,
+                      ),
+                    ),
                   ),
-                ),
+
+                  // #SEARCH BUTTON
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const LinearBorder(),
+                      backgroundColor: Theme.of(context).colorScheme.secondary
+                    ),
+                    onPressed: search, 
+                    child: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,)
+                  ),
+                ],
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width > 640? 1200 : MediaQuery.of(context).size.width -10,

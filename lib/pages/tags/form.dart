@@ -204,7 +204,29 @@ class _TagFormState extends State<TagForm> {
             ),
 
             BlockPicker(
-
+              // rework offset
+              itemBuilder: (color, isCurrentColor, changeColor) {
+                return Container(
+                  margin: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color,
+                    boxShadow: [BoxShadow(color: color.withOpacity(0.8))],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: changeColor,
+                      borderRadius: BorderRadius.circular(50),
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 210),
+                        opacity: isCurrentColor ? 1 : 0,
+                        child: Icon(Icons.done, color: useWhiteForeground(color) ? Colors.white : Colors.black),
+                      ),
+                    ),
+                  ),
+                );
+              },
               pickerColor: Colors.black, 
               onColorChanged: (c) {},
               availableColors: [
@@ -216,7 +238,10 @@ class _TagFormState extends State<TagForm> {
                 Colors.yellow.shade700,
                 Colors.green,
                 Colors.grey,
-                Colors.brown
+                Colors.brown,
+                Colors.cyan.shade800,
+                Colors.indigo.shade600,
+                Colors.lightGreen.shade700
               ],
             ),
             // const SizedBox(
