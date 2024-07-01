@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mittens/components/notification.dart';
 import 'package:mittens/service/grpc_service.dart';
@@ -60,27 +62,47 @@ class _TagTableState extends State<TagTable> {
                   // #SEARCH KEYWORD
                   Container(
                     alignment: Alignment.topRight,
-                    child: Container(
-                      width: 150,
-                      // height: 50,
-                      color: Colors.grey,
+                    child: SizedBox(
+                      width: 120,
+                      height: 32,
                       child: TextField(
-
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(bottom: 12, left: 5),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                          ),
+                        ),
                         controller: searchController,
                         onSubmitted: (value) => search,
                       ),
                     ),
                   ),
 
+                  const SizedBox(width: 10,),
+
                   // #SEARCH BUTTON
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shape: const LinearBorder(),
-                      backgroundColor: Theme.of(context).colorScheme.secondary
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3)
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: search, 
                     child: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,)
                   ),
+
+                  
+                  const SizedBox(width: 20,),
                 ],
               ),
               SizedBox(
