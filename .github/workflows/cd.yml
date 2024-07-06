@@ -15,10 +15,18 @@ jobs:
           flutter-version: '3.19.2'
       - run: flutter pub get
       - run: flutter build web
+      - uses: actions/upload-artifact@master
+        with:
+          name: build-artifact
+          path: ./build/web/
   publish:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: build-artifact
+          path: ./build/web/
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7
         with:
