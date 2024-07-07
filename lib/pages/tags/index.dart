@@ -19,6 +19,9 @@ class _TagsPageState extends State<TagsPage>
 
   late AnimationController _controller;
   // late Color _selectedColor;
+  int? _selectedID;
+  String? _selectedName;
+  String? _selectedDesc;
   Color? _selectedColor;
 
   @override
@@ -35,9 +38,14 @@ class _TagsPageState extends State<TagsPage>
     ));
   }
 
-  void _setColor(Color? color) {
+  void _setTagState(int? id, String? name, String? desc, Color? color) {
     setState(() {
+      _selectedID = id;
+      _selectedName = name;
+      _selectedDesc = desc;
       _selectedColor = color;
+      _controller.forward();
+
     });
   }
 
@@ -59,7 +67,7 @@ class _TagsPageState extends State<TagsPage>
                 minHeight: 3,
               ),
               // #PAGINATED DATA TABLE
-              TagTable(_selectedColor, _controller, _setColor)
+              TagTable(_setTagState)
             ],
           ),
 
@@ -75,10 +83,14 @@ class _TagsPageState extends State<TagsPage>
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 onPressed: () {
-                  setState(() {
-                    _controller.forward();
-                  });
-                }),
+                  _setTagState(
+                    null,
+                    null,
+                    null,
+                    null
+                  );
+                }
+            ),
           ),
 
           // #DETAIL ANIMATION
@@ -103,7 +115,8 @@ class _TagsPageState extends State<TagsPage>
                 width: MediaQuery.of(context).size.width > 640
                     ? 450
                     : MediaQuery.of(context).size.width,
-                child: TagForm(_controller, _selectedColor),
+                // child: TagForm(_controller, _selectedColor),
+                child: TagForm(_controller, _selectedID, _selectedName, _selectedDesc, _selectedColor),
               ),
             ),
           )

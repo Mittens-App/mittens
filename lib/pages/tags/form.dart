@@ -4,9 +4,12 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class TagForm extends StatefulWidget {
   final AnimationController _controller;
+  int? _id;
+  String? _name;
+  String? _desc;
   Color? _color;
 
-  TagForm(this._controller, this._color, {super.key});
+  TagForm(this._controller, this._id, this._name, this._desc, this._color, {super.key});
 
   @override
   State<TagForm> createState() => _TagFormState();
@@ -17,6 +20,13 @@ class _TagFormState extends State<TagForm> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descController = TextEditingController();
   TextEditingController colorController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget._name!;
+    descController.text = widget._desc!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -270,9 +280,9 @@ class _TagFormState extends State<TagForm> {
   }
 
   void closeModal() {
-    colorController.clear();
-    nameController.clear();
-    descController.clear();
+    // colorController.clear();
+    // nameController.clear();
+    // descController.clear();
     widget._controller.reverse();
   }
 }
