@@ -15,9 +15,11 @@ class _TagsPageState extends State<TagsPage>
     with SingleTickerProviderStateMixin {
   final String _header = 'TAGS';
 
-  late AnimationController _controller;
-
   late Animation<Offset> _offsetAnimation;
+
+  late AnimationController _controller;
+  // late Color _selectedColor;
+  Color? _selectedColor;
 
   @override
   void initState() {
@@ -31,6 +33,12 @@ class _TagsPageState extends State<TagsPage>
       parent: _controller,
       curve: Curves.linear,
     ));
+  }
+
+  void _setColor(Color? color) {
+    setState(() {
+      _selectedColor = color;
+    });
   }
 
   @override
@@ -51,7 +59,7 @@ class _TagsPageState extends State<TagsPage>
                 minHeight: 3,
               ),
               // #PAGINATED DATA TABLE
-              const TagTable()
+              TagTable(_selectedColor, _controller, _setColor)
             ],
           ),
 
@@ -95,7 +103,7 @@ class _TagsPageState extends State<TagsPage>
                 width: MediaQuery.of(context).size.width > 640
                     ? 450
                     : MediaQuery.of(context).size.width,
-                child: TagForm(_controller),
+                child: TagForm(_controller, _selectedColor),
               ),
             ),
           )

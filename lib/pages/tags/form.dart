@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class TagForm extends StatefulWidget {
   final AnimationController _controller;
+  Color? _color;
 
-  const TagForm(this._controller, {super.key});
+  TagForm(this._controller, this._color, {super.key});
 
   @override
   State<TagForm> createState() => _TagFormState();
@@ -19,10 +18,6 @@ class _TagFormState extends State<TagForm> {
   TextEditingController descController = TextEditingController();
   TextEditingController colorController = TextEditingController();
 
-  // create some values
-  Color selectedColor = Color(0xffD98624);
-  Color myColor = Color(0xffD98624);
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,6 +27,7 @@ class _TagFormState extends State<TagForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // #HEADER
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -54,10 +50,13 @@ class _TagFormState extends State<TagForm> {
               height: 45,
               child: TextFormField(
                 controller: nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Tag name",
-                ),
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Tag name",
+                    labelStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white70
+                            : Colors.black)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your Tag name';
@@ -78,13 +77,20 @@ class _TagFormState extends State<TagForm> {
               height: 150,
               // alignment: Alignment.topLeft,
               child: TextFormField(
+                textAlignVertical: TextAlignVertical.top,
                 minLines: null,
                 maxLines: null,
                 expands: true,
                 controller: descController,
                 obscureText: false,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Description"),
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Description",
+                    alignLabelWithHint: true,
+                    labelStyle: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white70
+                            : Colors.black)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your Description';
@@ -101,30 +107,6 @@ class _TagFormState extends State<TagForm> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // // #TEXTFIELD COLOR
-                // Expanded(
-                //   flex: 2,
-                //   child: Container(
-                //     // color: Theme.of(context).colorScheme.background,
-                //     color: currentColor,
-                //     height: 45,
-                //     child: TextFormField(
-                //       controller: colorController,
-                //       obscureText: true,
-                //       decoration: InputDecoration(
-                //           border: OutlineInputBorder(),
-                //           labelText: "COLOR",
-                //           labelStyle: TextStyle(fontSize: 10)),
-                //       validator: (value) {
-                //         if (value == null || value.isEmpty) {
-                //           return 'Please enter your Color';
-                //         }
-                //         return null;
-                //       },
-                //     ),
-                //   ),
-                // ),
-
                 // #BOX COLOR
                 Expanded(
                   flex: 2,
@@ -133,15 +115,9 @@ class _TagFormState extends State<TagForm> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          "Color",
+                          "Selected Color",
                           textAlign: TextAlign.left,
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: myColor),
-                        height: 30,
                       ),
                     ],
                   ),
@@ -150,56 +126,6 @@ class _TagFormState extends State<TagForm> {
                 const SizedBox(
                   width: 10,
                 ),
-
-                // #BUTTON PICK COLOR
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Pick a color!'),
-                              content: SingleChildScrollView(
-                                child: ColorPicker(
-                                  pickerColor: selectedColor, //default color
-                                  onColorChanged: (Color color) {
-                                    //on color picked
-                                    setState(() {
-                                      selectedColor = color;
-                                    });
-                                  },
-                                ),
-                              ),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  child: const Text('Got it'),
-                                  onPressed: () {
-                                    setState(
-                                        () => myColor = selectedColor);
-                                    Navigator.of(context)
-                                        .pop(); //dismiss the color picker
-                                  },
-                                ),
-                              ],
-                            );
-                          });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: const Text(
-                      "Change Color",
-                      textAlign: TextAlign.center,
-                      // style: TextStyle(fontSize: 10),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-
               ],
             ),
 
@@ -220,15 +146,26 @@ class _TagFormState extends State<TagForm> {
                       borderRadius: BorderRadius.circular(50),
                       child: AnimatedOpacity(
                         duration: const Duration(milliseconds: 210),
-                        opacity: isCurrentColor ? 1 : 0,
-                        child: Icon(Icons.done, color: useWhiteForeground(color) ? Colors.white : Colors.black),
+                        opacity: widget._color != null
+                            ? (widget._color?.value == color.value)
+                                ? 1
+                                : 0
+                            : 0,
+                        child: Icon(Icons.done,
+                            color: useWhiteForeground(color)
+                                ? Colors.white
+                                : Colors.black),
                       ),
                     ),
                   ),
                 );
               },
-              pickerColor: Colors.black, 
-              onColorChanged: (c) {},
+              pickerColor: widget._color,
+              onColorChanged: (color) {
+                setState(() {
+                  widget._color = color;
+                });
+              },
               availableColors: [
                 Colors.black,
                 Colors.red,
@@ -244,72 +181,98 @@ class _TagFormState extends State<TagForm> {
                 Colors.lightGreen.shade700
               ],
             ),
-            // const SizedBox(
-            //   height: 25,
-            // ),
 
             const Spacer(),
-            // #SAVE BUTTON
-            SizedBox(
-              width: 330,
-              height: 35,
-              child: ElevatedButton(
-                onPressed: () async {
-                  // String message = "Please fill input";
-                  if (_formKey.currentState!.validate()) {
-                    // Navigate the user to the Home page
 
-                    // final process = await GrpcService().login(usernamelController.text, passwordController.text);
-
-                    // if (process.status) {
-                    //   var response = process.data as LoginResponse;
-
-                    //   await SessionService().save(response.username, response.token);
-                    //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(response.username)));
-
-                    //   usernamelController.clear();
-                    //   passwordController.clear();
-                    return;
-                  }
-                  // message = process.message;
-                  // }
-
-                  // NotificationContent(context).setText(message).show();
-                },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size.zero,
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: const Color.fromRGBO(32, 91, 125, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    )),
-                child: Text(
-                  'SIGN IN',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      letterSpacing: 0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 35,
+                  child: ElevatedButton(
+                    onPressed: closeModal,
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            side: BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.secondary))),
+                    child: Text(
+                      'Cancel',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                          letterSpacing: 0),
+                    ),
+                  ),
                 ),
-              ),
+
+                const SizedBox(
+                  width: 15,
+                ),
+
+                // #SAVE BUTTON
+                SizedBox(
+                  width: 75,
+                  height: 35,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Navigate the user to the Home page
+
+                        // final process = await GrpcService().login(usernamelController.text, passwordController.text);
+
+                        // if (process.status) {
+                        //   var response = process.data as LoginResponse;
+
+                        //   await SessionService().save(response.username, response.token);
+                        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(response.username)));
+
+                        //   usernamelController.clear();
+                        //   passwordController.clear();
+                        closeModal();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        backgroundColor: const Color.fromRGBO(32, 91, 125, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        )),
+                    child: Text(
+                      'Save',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                          letterSpacing: 0),
+                    ),
+                  ),
+                ),
+              ],
             ),
 
-            ElevatedButton(
-              child: Text("Close"),
-              onPressed: () {
-                colorController.clear();
-                nameController.clear();
-                descController.clear();
-                widget._controller.reverse();
-              },
-            ),
             const SizedBox(
-              height: 25,
+              height: 10,
             ),
           ],
         ),
       ),
     );
+  }
+
+  void closeModal() {
+    colorController.clear();
+    nameController.clear();
+    descController.clear();
+    widget._controller.reverse();
   }
 }

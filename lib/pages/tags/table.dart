@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:mittens/components/notification.dart';
@@ -7,7 +7,11 @@ import "package:mittens/protofiles/tag.pbgrpc.dart" as tag;
 import 'package:mittens/service/session_service.dart';
 
 class TagTable extends StatefulWidget {
-  const TagTable({super.key});
+  final AnimationController _controller;
+  Color? _selectedColor;
+  Function setColor;
+
+  TagTable(this._selectedColor, this._controller, this.setColor, {super.key});
 
   @override
   State<TagTable> createState() => _TagTableState();
@@ -16,7 +20,7 @@ class TagTable extends StatefulWidget {
 class _TagTableState extends State<TagTable> {
   
   List<tag.DataResponse> dataResponse = [];
-  late DataTableSource _data = TagsDataSource(dataResponse);
+  late DataTableSource _data = TagsDataSource(dataResponse, widget._selectedColor, widget._controller, widget.setColor);
 
   TextEditingController searchController = TextEditingController();
 
@@ -38,7 +42,7 @@ class _TagTableState extends State<TagTable> {
       final resp= process.data as tag.GetResponse;
       dataResponse =  resp.data;
       setState(() {
-        _data = TagsDataSource(dataResponse);
+        _data = TagsDataSource(dataResponse, widget._selectedColor, widget._controller, widget.setColor);
       });
     });
   }
@@ -134,9 +138,18 @@ class _TagTableState extends State<TagTable> {
 class TagsDataSource extends DataTableSource {
 
   List<tag.DataResponse> dataResponse;
+  Color? _selectedColorSource;
+  Function _setColorSource;
+  final AnimationController _controllerSource;
 
-  TagsDataSource(this.dataResponse);
+  TagsDataSource(this.dataResponse, this._selectedColorSource, this._controllerSource, this._setColorSource);
   
+  // AnimationController _controller;
+
+  // void initColor(Color? color) {
+  //   _selectedColor = color;
+  // }
+
   @override
   DataRow? getRow(int index) {
     return DataRow(
@@ -184,6 +197,11 @@ class TagsDataSource extends DataTableSource {
           children: [
             IconButton(
               onPressed: () {
+                _selectedColorSource = Color(
+                    int.parse(dataResponse[index].color, radix: 16) + 0xFF000000
+                );
+                _setColorSource(_selectedColorSource);
+                _controllerSource.forward();
               }, 
               icon: const Icon(Icons.edit_outlined)
             ),
