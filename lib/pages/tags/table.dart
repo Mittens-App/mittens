@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:mittens/components/notification.dart';
 import 'package:mittens/service/grpc_service.dart';
@@ -23,6 +21,8 @@ class _TagTableState extends State<TagTable> {
 
   TextEditingController searchController = TextEditingController();
 
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +30,9 @@ class _TagTableState extends State<TagTable> {
   }
 
   void search () {
+    setState(() {
+      _isLoading = true;
+    });
     Future(() async {
       final (_, token!) = await SessionService().get();
       final process = await GrpcService().setToken(token).getTags(searchController.text);
@@ -42,6 +45,7 @@ class _TagTableState extends State<TagTable> {
       dataResponse =  resp.data;
       setState(() {
         _data = TagsDataSource(dataResponse, widget._setTagState);
+        _isLoading = false;
       });
     });
   }
@@ -59,6 +63,13 @@ class _TagTableState extends State<TagTable> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
+              _isLoading? LinearProgressIndicator(
+                backgroundColor: Colors.transparent,
+                color: Theme.of(context).colorScheme.primary,
+                minHeight: 3,
+              ): const SizedBox(),
+
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -61,11 +61,6 @@ class _TagsPageState extends State<TagsPage>
               // #Header Content
               HeaderContent(_header),
 
-              LinearProgressIndicator(
-                backgroundColor: Colors.transparent,
-                color: Theme.of(context).colorScheme.primary,
-                minHeight: 3,
-              ),
               // #PAGINATED DATA TABLE
               TagTable(_setTagState)
             ],
