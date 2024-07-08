@@ -112,4 +112,42 @@ class GrpcService {
       status, message, response
     ));
   }
+
+  Future<MyResponse> saveOrUpdateTag(int id, String name, String desc, String color) async {
+    final channel = _getChannel();
+    final stub = tag.TagClient(channel, options: _authOptions());
+    String message = "";
+    bool status = false;
+    // tag.CreateResponse? response;
+    Object? response;
+
+     try {
+      if (id == 0) {
+        response = await stub.create(
+          tag.CreateRequest(
+            name: name,
+            desc: desc,
+            color: color
+          )  
+        );
+      } else {
+        response = await stub.update(
+          tag.UpdateRequest(
+            id: id,
+            name: name,
+            desc: desc,
+            color: color
+          )  
+        );
+      }
+      
+      status = true;
+    } on GrpcError catch (er) {
+      message = er.message!;
+    }
+    await channel.shutdown();
+    return Future.value(MyResponse(
+      status, message, response
+    ));
+  }
 }
