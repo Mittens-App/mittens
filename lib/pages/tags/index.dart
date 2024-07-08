@@ -115,8 +115,13 @@ class _TagsPageState extends State<TagsPage>
                 width: MediaQuery.of(context).size.width > 640
                     ? 450
                     : MediaQuery.of(context).size.width,
-                // child: TagForm(_controller, _selectedColor),
-                child: TagForm(_controller, _selectedID, _selectedName, _selectedDesc, _selectedColor),
+                child: TagForm(
+                  controller: _controller,
+                  id: _selectedID,
+                  name: _selectedName,
+                  desc: _selectedDesc,
+                  color: _selectedColor
+                ),
               ),
             ),
           )
