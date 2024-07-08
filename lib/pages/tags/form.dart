@@ -48,7 +48,7 @@ class _TagFormState extends State<TagForm> {
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Create Tag",
+                "${widget.id ==null? "Create":"Update"} Tag",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.montserrat(
                   textStyle: TextStyle(fontSize: 18),
