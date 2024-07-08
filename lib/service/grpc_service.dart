@@ -1,5 +1,6 @@
 import "package:flutter/services.dart" as s;
 import "package:grpc/grpc_web.dart";
+import "package:mittens/protofiles/report.pbgrpc.dart";
 import "package:mittens/protofiles/tag.pbgrpc.dart" as tag;
 import "package:mittens/protofiles/user.pbgrpc.dart";
 import "package:yaml/yaml.dart";
@@ -80,6 +81,26 @@ class GrpcService {
     PingResponse? response;
     try {
       response = await stub.ping(PingRequest());
+      status = true;
+    } on GrpcError catch (er) {
+      message = er.codeName;
+    }
+    await channel.shutdown();
+
+    return Future.value(MyResponse(
+      status, message, response
+    ));
+  }
+
+  /// overview
+  Future<MyResponse> overview() async {
+    final channel = _getChannel();
+    final stub = ReportClient(channel, options: _authOptions());
+    String message = "";
+    bool status = false;
+    ReportResponse? response;
+    try {
+      response = await stub.report(ReportRequest());
       status = true;
     } on GrpcError catch (er) {
       message = er.codeName;

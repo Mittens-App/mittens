@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package src.v1.report; 
+
+// Report Service
+service Report {
+    // Return for report
+    rpc Report(ReportRequest) returns (ReportResponse) {}
+}
+
+message ReportRequest {
+    
+}
+
+message ReportResponse {
+    // total active testcases
+    uint32 total_testcases = 1;
+    // total active tags
+    uint32 total_tags = 2;
+    // total efectiveness
+    double total_efectiveness = 3;
+    // list data result top 5 result
+    repeated DataResponse ResultData = 4;
+    // list data tag top 5 result
+    repeated TagDataResponse TagData = 5;
+    // current month string
+    string current_month_string = 6;
+    // current month
+    uint32 current_month = 7;
+    // current year
+    uint32 current_year = 8;
+    // status request
+    string status = 9;
+}
+
+message DataResponse {
+    // id of result
+    uint32 id = 1;
+    // date of result
+    string date = 2;
+    // name of result
+    string name = 3;
+    // status of result
+    string status = 4;
+    // executor result testcase
+    string executor = 5;
+}
+
+message TagDataResponse {
+    // id of result
+    uint32 id = 1;
+    // tag name of result
+    string name = 2;
+    // total test count per tag
+    uint32 total = 3;
+    // efectiveness per tag
+    double efectiveness = 4;
+}
