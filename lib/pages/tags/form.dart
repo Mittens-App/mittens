@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:mittens/service/grpc_service.dart';
+import 'package:mittens/service/session_service.dart';
 
 class TagForm extends StatefulWidget {
-  final AnimationController _controller;
-  int? _id;
-  String? _name;
-  String? _desc;
-  Color? _color;
+  final AnimationController? controller;
+  int? id;
+  String? name;
+  String? desc;
+  Color? color;
 
-  TagForm(this._controller, this._id, this._name, this._desc, this._color, {super.key});
+  TagForm({super.key, this.name, this.controller, this.id, this.desc, this.color});
 
   @override
   State<TagForm> createState() => _TagFormState();
@@ -19,13 +21,17 @@ class _TagFormState extends State<TagForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  TextEditingController colorController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    nameController.text = widget._name!;
-    descController.text = widget._desc!;
+    nameController.text = widget.name ??  "";
+    descController.text = widget.desc ?? "";
+
+    widget.controller!.addListener(() {
+      nameController.text = widget.name ?? "";
+      descController.text = widget.desc ?? "";
+    });
   }
 
   @override
@@ -156,24 +162,24 @@ class _TagFormState extends State<TagForm> {
                       borderRadius: BorderRadius.circular(50),
                       child: AnimatedOpacity(
                         duration: const Duration(milliseconds: 210),
-                        opacity: widget._color != null
-                            ? (widget._color?.value == color.value)
+                        opacity: widget.color != null
+                            ? (widget.color?.value == color.value)
                                 ? 1
                                 : 0
                             : 0,
-                        child: Icon(Icons.done,
-                            color: useWhiteForeground(color)
-                                ? Colors.white
-                                : Colors.black),
+                        child: const Icon(
+                          Icons.done,
+                          color: Colors.white
+                        ),
                       ),
                     ),
                   ),
                 );
               },
-              pickerColor: widget._color,
+              pickerColor: widget.color,
               onColorChanged: (color) {
                 setState(() {
-                  widget._color = color;
+                  widget.color = color;
                 });
               },
               availableColors: [
@@ -181,8 +187,8 @@ class _TagFormState extends State<TagForm> {
                 Colors.red,
                 Colors.purple,
                 Colors.blue,
-                Colors.orange,
-                Colors.yellow.shade700,
+                Colors.orange.shade600,
+                Colors.yellow.shade800,
                 Colors.green,
                 Colors.grey,
                 Colors.brown,
@@ -232,20 +238,16 @@ class _TagFormState extends State<TagForm> {
                   width: 75,
                   height: 35,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // Navigate the user to the Home page
+                        final (_, token!) = await SessionService().get();
+                        final process = await GrpcService().setToken(token).saveOrUpdateTag(
+                          widget.id ?? 0,
+                          nameController.text,
+                          descController.text,
+                          widget.color != null ? widget.color!.value.toRadixString(16) : ""
+                        );
 
-                        // final process = await GrpcService().login(usernamelController.text, passwordController.text);
-
-                        // if (process.status) {
-                        //   var response = process.data as LoginResponse;
-
-                        //   await SessionService().save(response.username, response.token);
-                        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(response.username)));
-
-                        //   usernamelController.clear();
-                        //   passwordController.clear();
                         closeModal();
                       }
                     },
@@ -280,9 +282,8 @@ class _TagFormState extends State<TagForm> {
   }
 
   void closeModal() {
-    // colorController.clear();
-    // nameController.clear();
-    // descController.clear();
-    widget._controller.reverse();
+    nameController.clear();
+    descController.clear();
+    widget.controller!.reverse();
   }
 }
