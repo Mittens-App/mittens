@@ -150,4 +150,27 @@ class GrpcService {
       status, message, response
     ));
   }
+
+  /// Delete tag
+  Future<MyResponse> deleteTag(int id) async {
+    final channel = _getChannel();
+    final stub = tag.TagClient(channel, options: _authOptions());
+    String message = "";
+    bool status = false;
+    tag.DeleteResponse? response;
+
+     try {
+      response = await stub.delete(
+        tag.DeleteRequest(id: id)  
+      );
+      status = true;
+    } on GrpcError catch (er) {
+      message = er.message!;
+    }
+    await channel.shutdown();
+    return Future.value(MyResponse(
+      status, message, response
+    ));
+  }
+
 }

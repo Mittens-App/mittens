@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:mittens/components/notification.dart';
 import 'package:mittens/service/grpc_service.dart';
 import 'package:mittens/service/session_service.dart';
 
@@ -203,6 +204,30 @@ class _TagFormState extends State<TagForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                // #DELETE BUTTON
+                widget.id != null && widget.id! > 0 ? Container(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: () async {
+                      final (_, token!) = await SessionService().get();
+                      final process = await GrpcService().setToken(token).deleteTag(
+                        widget.id!
+                      );
+
+                      if (!process.status) {
+                        NotificationContent(context).setText(process.message).show();
+                        return;
+                      }
+
+                      closeModal();
+                    }, 
+                    icon: const Icon(Icons.delete_outline)
+                  ),
+                ): const SizedBox(),
+
+                const Spacer(),
+
+                // #CANCEL BUTTON
                 SizedBox(
                   width: 80,
                   height: 35,
@@ -239,17 +264,24 @@ class _TagFormState extends State<TagForm> {
                   height: 35,
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        final (_, token!) = await SessionService().get();
-                        final process = await GrpcService().setToken(token).saveOrUpdateTag(
-                          widget.id ?? 0,
-                          nameController.text,
-                          descController.text,
-                          widget.color != null ? widget.color!.value.toRadixString(16) : ""
-                        );
-
-                        closeModal();
+                      if (!_formKey.currentState!.validate()) {
+                        return;
                       }
+                      final (_, token!) = await SessionService().get();
+                      final process = await GrpcService().setToken(token).saveOrUpdateTag(
+                        widget.id ?? 0,
+                        nameController.text,
+                        descController.text,
+                        widget.color != null ? widget.color!.value.toRadixString(16) : ""
+
+                      );
+
+                      if (!process.status) {
+                        NotificationContent(context).setText(process.message).show();
+                        return;
+                      }
+
+                      closeModal();
                     },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size.zero,
