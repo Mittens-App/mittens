@@ -193,7 +193,7 @@ class TagsDataSource extends DataTableSource {
                   dataResponse[index].name,
                   dataResponse[index].desc,
                   Color(
-                    int.parse(dataResponse[index].color, radix: 16) + 0xFF000000
+                    int.parse(dataResponse[index].color, radix: 16)
                   )
                 );
 
