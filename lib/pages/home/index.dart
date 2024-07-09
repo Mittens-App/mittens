@@ -132,6 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white70
               ),
             
+              useIndicator: true,
+              indicatorShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+              ),
               destinations: [
                 const NavigationRailDestination(
                   padding: EdgeInsets.only(top: 10),

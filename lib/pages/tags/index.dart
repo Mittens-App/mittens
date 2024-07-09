@@ -54,74 +54,72 @@ class _TagsPageState extends State<TagsPage>
     return Title(
       color: Colors.white,
       title: Constants().titleFormat(_header.toLowerCase()),
-      child: Expanded(
-        child: Stack(children: [
-          Column(
-            children: [
-              // #Header Content
-              HeaderContent(_header),
-
-              // #PAGINATED DATA TABLE
-              TagTable(_setTagState)
-            ],
+      child: Stack(children: [
+        Column(
+          children: [
+            // #Header Content
+            HeaderContent(_header),
+      
+            // #PAGINATED DATA TABLE
+            TagTable(_setTagState)
+          ],
+        ),
+      
+        // #ADD BUTTON
+        Container(
+          padding: const EdgeInsets.all(15),
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+              shape: const CircleBorder(),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onPressed: () {
+                _setTagState(
+                  null,
+                  null,
+                  null,
+                  null
+                );
+              }
           ),
-
-          // #ADD BUTTON
-          Container(
-            padding: const EdgeInsets.all(15),
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-                shape: const CircleBorder(),
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                child: Icon(
-                  Icons.add,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () {
-                  _setTagState(
-                    null,
-                    null,
-                    null,
-                    null
-                  );
-                }
-            ),
-          ),
-
-          // #DETAIL ANIMATION
-          Container(
-            alignment: Alignment.centerRight, // CAREFUL!
-            child: SlideTransition(
-              position: _offsetAnimation,
-
-              // #DETAIL BOX CONTENT
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Theme.of(context).colorScheme.primary
-                        : Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.5),
-                          offset: Offset(2, 5),
-                          blurRadius: 5)
-                    ]),
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width > 640
-                    ? 450
-                    : MediaQuery.of(context).size.width,
-                child: TagForm(
-                  controller: _controller,
-                  id: _selectedID,
-                  name: _selectedName,
-                  desc: _selectedDesc,
-                  color: _selectedColor
-                ),
+        ),
+      
+        // #DETAIL ANIMATION
+        Container(
+          alignment: Alignment.centerRight, // CAREFUL!
+          child: SlideTransition(
+            position: _offsetAnimation,
+      
+            // #DETAIL BOX CONTENT
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                        offset: Offset(2, 5),
+                        blurRadius: 5)
+                  ]),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width > 640
+                  ? 450
+                  : MediaQuery.of(context).size.width,
+              child: TagForm(
+                controller: _controller,
+                id: _selectedID,
+                name: _selectedName,
+                desc: _selectedDesc,
+                color: _selectedColor
               ),
             ),
-          )
-        ]),
-      ),
+          ),
+        )
+      ]),
     );
   }
 }
