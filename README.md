@@ -5,7 +5,7 @@
    Management test tools for Python unittest codes
 </p>
 
-[![mittens CD](https://github.com/mittensapp/mittens/actions/workflows/cd.yml/badge.svg)](https://github.com/mittensapp/mittens/actions/workflows/cd.yml)
+[![mittens CD](https://github.com/mittensapp/mittens/actions/workflows/cd.yml/badge.svg)](https://github.com/mittensapp/mittens/actions/workflows/cd.yml) [![mittens CI](https://github.com/mittensapp/mittens/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mittensapp/mittens/actions/workflows/ci.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mittensapp_mittens&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mittensapp_mittens)
 
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white) ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
 
