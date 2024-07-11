@@ -1,8 +1,5 @@
-name: Build
+name: mittens CI
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
