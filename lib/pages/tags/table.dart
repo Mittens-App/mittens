@@ -14,10 +14,10 @@ class TagTable extends StatefulWidget {
 }
 
 class _TagTableState extends State<TagTable> {
-  
   List<tag.DataResponse> dataResponse = [];
 
-  late DataTableSource _data = TagsDataSource(dataResponse, widget._setTagState);
+  late DataTableSource _data =
+      TagsDataSource(dataResponse, widget._setTagState);
 
   TextEditingController searchController = TextEditingController();
 
@@ -29,20 +29,21 @@ class _TagTableState extends State<TagTable> {
     search();
   }
 
-  void search () {
+  void search() {
     setState(() {
       _isLoading = true;
     });
     Future(() async {
       final (_, token!) = await SessionService().get();
-      final process = await GrpcService().setToken(token).getTags(searchController.text);
+      final process =
+          await GrpcService().setToken(token).getTags(searchController.text);
       if (!process.status) {
         NotificationContent(context).setText(process.message).show();
         return;
       }
 
-      final resp= process.data as tag.GetResponse;
-      dataResponse =  resp.data;
+      final resp = process.data as tag.GetResponse;
+      dataResponse = resp.data;
       setState(() {
         _data = TagsDataSource(dataResponse, widget._setTagState);
         _isLoading = false;
@@ -55,7 +56,9 @@ class _TagTableState extends State<TagTable> {
     return Container(
       alignment: Alignment.topCenter,
       // width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.width > 640? (MediaQuery.of(context).size.height - 80) : MediaQuery.of(context).size.height -150,
+      height: MediaQuery.of(context).size.width > 640
+          ? (MediaQuery.of(context).size.height - 80)
+          : MediaQuery.of(context).size.height - 150,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
@@ -63,13 +66,13 @@ class _TagTableState extends State<TagTable> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              _isLoading? LinearProgressIndicator(
-                backgroundColor: Colors.transparent,
-                color: Theme.of(context).colorScheme.primary,
-                minHeight: 3,
-              ): const SizedBox(),
-
-
+              _isLoading
+                  ? LinearProgressIndicator(
+                      backgroundColor: Colors.transparent,
+                      color: Theme.of(context).colorScheme.primary,
+                      minHeight: 3,
+                    )
+                  : const SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -84,15 +87,22 @@ class _TagTableState extends State<TagTable> {
                           fontSize: 14,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(bottom: 12, left: 5),
+                          contentPadding:
+                              const EdgeInsets.only(bottom: 12, left: 5),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.secondary,
+                                width: 0.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.secondary,
+                                width: 0.0),
                           ),
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 0.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.secondary,
+                                width: 0.0),
                           ),
                         ),
                         controller: searchController,
@@ -101,40 +111,52 @@ class _TagTableState extends State<TagTable> {
                     ),
                   ),
 
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
 
                   // #SEARCH BUTTON
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(3)
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(3)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                       ),
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    onPressed: search, 
-                    child: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,)
-                  ),
+                      onPressed: search,
+                      child: Icon(
+                        Icons.search,
+                        color: Theme.of(context).colorScheme.primary,
+                      )),
 
-                  
-                  const SizedBox(width: 20,),
+                  const SizedBox(
+                    width: 20,
+                  ),
                 ],
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width > 640? 1200 : MediaQuery.of(context).size.width -10,
-                child: dataResponse.isEmpty? null: PaginatedDataTable(
-                  source: _data,
-                  
-                  columns: const [
-                    DataColumn(label: Text('Tag Name')),
-                    DataColumn(label: Text('Description')),
-                    DataColumn(label: Text('Color')),
-                    DataColumn(label: Text('Action'))
-                  ],
-                  columnSpacing: 10,
-                  horizontalMargin:10,
-                  rowsPerPage: dataResponse.length,
-                  showFirstLastButtons: false,
-                ),
+                width: MediaQuery.of(context).size.width > 640
+                    ? 1200
+                    : MediaQuery.of(context).size.width - 10,
+                child: dataResponse.isEmpty
+                    ? null
+                    : PaginatedDataTable(
+                        source: _data,
+                        columns: const [
+                          DataColumn(label: Text('Tag Name')),
+                          DataColumn(label: Text('Description')),
+                          DataColumn(label: Text('Color')),
+                          DataColumn(label: Text('Action'))
+                        ],
+
+                        
+                        headingRowColor: MaterialStateColor.resolveWith(
+                            (states) => const Color.fromRGBO(16, 51, 71, 1)),
+                        columnSpacing: 10,
+                        horizontalMargin: 10,
+                        rowsPerPage: dataResponse.length,
+                        showFirstLastButtons: false,
+                      ),
               ),
             ],
           ),
@@ -146,7 +168,6 @@ class _TagTableState extends State<TagTable> {
 
 // #DATA SOURCE FOR PAGINATED DATA TABLE
 class TagsDataSource extends DataTableSource {
-
   List<tag.DataResponse> dataResponse;
   Function _setTagSource;
 
@@ -154,63 +175,41 @@ class TagsDataSource extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    return DataRow(
-      
-      cells: [
+    return DataRow(cells: [
+      // #TAG NAME
+      DataCell(ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 150, minWidth: 50),
+          child: Text(dataResponse[index].name,
+              overflow: TextOverflow.ellipsis, maxLines: 2))),
 
-        // #TAG NAME
-        DataCell(
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 150,
-              minWidth: 50
-            ),
-            child: Text(dataResponse[index].name, overflow: TextOverflow.ellipsis, maxLines: 2)
-          )
-        ),
+      // #TAG DESCRIPTION
+      DataCell(ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800, minWidth: 50),
+          child: Text(dataResponse[index].desc,
+              overflow: TextOverflow.ellipsis, maxLines: 2))),
 
-        // #TAG DESCRIPTION
-        DataCell(
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 800,
-              minWidth: 50
-            ),
-            child: Text(dataResponse[index].desc, overflow: TextOverflow.ellipsis, maxLines: 2)
-          )
-        ),
-
-        // #TAG COLOR
-        DataCell(
-          Container(
-            height: 20,
-            width: 65,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Color(
-                  int.parse(dataResponse[index].color, radix: 16) + 0xFF000000
-              )
-            ),
-          )
-        ),
+      // #TAG COLOR
+      DataCell(Container(
+        height: 20,
+        width: 65,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Color(
+                int.parse(dataResponse[index].color, radix: 16) + 0xFF000000)),
+      )),
 
       DataCell(
         Row(
           children: [
             IconButton(
-              onPressed: () {
-                _setTagSource(
-                  dataResponse[index].id,
-                  dataResponse[index].name,
-                  dataResponse[index].desc,
-                  Color(
-                    int.parse(dataResponse[index].color, radix: 16)
-                  )
-                );
-
-              }, 
-              icon: const Icon(Icons.edit_outlined)
-            ),
+                onPressed: () {
+                  _setTagSource(
+                      dataResponse[index].id,
+                      dataResponse[index].name,
+                      dataResponse[index].desc,
+                      Color(int.parse(dataResponse[index].color, radix: 16)));
+                },
+                icon: const Icon(Icons.edit_outlined)),
           ],
         ),
         // placeholder: false,

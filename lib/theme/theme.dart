@@ -23,8 +23,8 @@ ThemeData lightMode = ThemeData(
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
   cardTheme: const CardTheme(
-    color: Colors.transparent,
-    shadowColor: Colors.transparent,
+    color: Color.fromRGBO(252, 249, 249, 0.1),
+    // shadowColor: Colors.transparent,
     elevation: 0,
   ),
   colorScheme: const ColorScheme.dark(
